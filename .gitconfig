@@ -1,0 +1,10 @@
+[user]
+	email = mgummelt1@gmail.com
+	name = Michael Gummelt
+[core]
+	editor = emacs -nw
+	excludesfile = /home/mgummelt/.gitignore_global
+[push]
+	default = simple
+[rerere]
+  enabled = true
