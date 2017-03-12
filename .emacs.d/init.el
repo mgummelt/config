@@ -2,9 +2,15 @@
 (add-to-list 'load-path "~/.emacs.d/src")
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
 
+;; package repos
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+
 ;; file path modes
 (add-to-list 'auto-mode-alist '("\\.less$" . css-mode))
 (add-to-list 'auto-mode-alist '("\\.html$" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.m$" . octave-mode))
+(add-to-list 'auto-mode-alist '("\\.jsx$" . javascript-mode))
 ;;(add-to-list 'auto-mode-alist '("\\.js$" . web-mode))
 
 ;; el-get
@@ -16,6 +22,7 @@
 (require 'color-theme-tomorrow)
 (require 'pymacs)
 (require 'uniquify)
+(require 'annot)
 
 ;; python
 (setq python-shell-interpreter "ipython"
@@ -105,11 +112,16 @@
       org-agenda-start-on-weekday nil
       org-reverse-note-order t
       org-indent-indentation-per-level 1
+      org-time-clocksum-use-effort-durations t
       browse-url-generic-program (executable-find "google-chrome")
       browse-url-browser-function 'browse-url-generic
-      org-capture-templates '(("o" "other" entry (file+datetree "~/org/calendar.org")
+      org-html-postamble nil
+      org-export-with-section-numbers 0
+      org-capture-templates '(("o" "calendar" entry (file+datetree "~/org/calendar.org")
                                "* TODO %?\n%^t\n" :unnarrowed t)
-                              ("i" "idea" entry (file+headline "~/org/notes/business/startups.org" "new ideas") "* %?")))
+                              ("i" "idea" entry (file+headline "~/notes/business/startups.org" "new ideas") "* %?")
+                              ("s" "scratch" plain (file "~/org/scratch.org"))
+                              ("c" "chore" entry (file "~/org/chores.org") "* %?")))
 
 (put 'narrow-to-region 'disabled nil)
 (put 'narrow-to-page 'disabled nil)
@@ -118,11 +130,6 @@
 (setq web-mode-engines-alist '(("django" . "\\.html\\'")))
 (setq web-mode-markup-indent-offset 2)
 
-
-
-
-
-
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -130,8 +137,33 @@
  ;; If there is more than one, they won't work right.
  '(git-baseline-alist (quote (("/tmp/proj1/" . "master"))) t)
  '(grep-command "grep -niIR ")
- '(org-agenda-files (quote ("/home/mgummelt/org/tmp/people.org" "/home/mgummelt/org/tmp/plan.org" "/home/mgummelt/org/tmp/scratch.org" "/home/mgummelt/org/tmp/work.org" "/home/mgummelt/org/projects/habits.org" "/home/mgummelt/org/projects/old/whiplaugh.org_archive" "/home/mgummelt/org/projects/old/whiplaugh.org" "/home/mgummelt/org/projects/old/sys_admin.org" "/home/mgummelt/org/projects/old/socialsearch.org" "/home/mgummelt/org/projects/old/smack.org" "/home/mgummelt/org/projects/old/python_type_checking.org" "/home/mgummelt/org/projects/old/privatebox.org" "/home/mgummelt/org/projects/old/mongo_indexing.org" "/home/mgummelt/org/projects/old/lifting.org" "/home/mgummelt/org/projects/old/housing.org" "/home/mgummelt/org/projects/old/editor.org" "/home/mgummelt/org/projects/old/dns.org" "/home/mgummelt/org/projects/old/cs244final.org" "/home/mgummelt/org/projects/old/bolt.org" "/home/mgummelt/org/projects/old/bitcoin.org" "/home/mgummelt/org/projects/old/art-of-virtue.org" "/home/mgummelt/org/notes/books.org" "/home/mgummelt/org/notes/business/startups.org" "/home/mgummelt/org/notes/business/people.org" "/home/mgummelt/org/notes/business/finances.org" "/home/mgummelt/org/notes/business/economics.org" "/home/mgummelt/org/notes/class.org" "/home/mgummelt/org/notes/cs/tools.org" "/home/mgummelt/org/notes/cs/theory.org" "/home/mgummelt/org/notes/cs/security.org" "/home/mgummelt/org/notes/cs/programming.org" "/home/mgummelt/org/notes/cs/os/operating_systems/linux.org" "/home/mgummelt/org/notes/cs/os/os.org" "/home/mgummelt/org/notes/cs/os/tools/mesos.org" "/home/mgummelt/org/notes/cs/os/tools/docker.org" "/home/mgummelt/org/notes/cs/os/tools/aws.org" "/home/mgummelt/org/notes/cs/networking.org_archive" "/home/mgummelt/org/notes/cs/networking.org" "/home/mgummelt/org/notes/cs/machine_learning.org" "/home/mgummelt/org/notes/cs/languages.org" "/home/mgummelt/org/notes/cs/hardware.org" "/home/mgummelt/org/notes/cs/databases.org" "/home/mgummelt/org/notes/design.org" "/home/mgummelt/org/notes/fashion.org" "/home/mgummelt/org/notes/health/sex.org" "/home/mgummelt/org/notes/health/nutrition.org" "/home/mgummelt/org/notes/health/lifting.org" "/home/mgummelt/org/notes/health/foods.org" "/home/mgummelt/org/notes/health/anatomy.org" "/home/mgummelt/org/notes/history/technology.org" "/home/mgummelt/org/notes/history/science.org" "/home/mgummelt/org/notes/learning.org" "/home/mgummelt/org/notes/math/vector-calculus.org" "/home/mgummelt/org/notes/math/logic.org" "/home/mgummelt/org/notes/math/combinatorics.org" "/home/mgummelt/org/notes/math/calculus.org" "/home/mgummelt/org/notes/math/algebra.org" "/home/mgummelt/org/notes/science/biology.org" "/home/mgummelt/org/notes/self/values.org" "/home/mgummelt/org/notes/self/questions.org" "/home/mgummelt/org/notes/self/methods.org" "/home/mgummelt/org/notes/social/p.org" "/home/mgummelt/org/notes/social/argument.org" "/home/mgummelt/org/notes/work/work.org_archive" "/home/mgummelt/org/notes/work/will.org" "/home/mgummelt/org/notes/work/problems.org" "/home/mgummelt/org/notes/work/ideas.org" "/home/mgummelt/org/notes/work/features.org" "/home/mgummelt/org/notes/writing.org" "/home/mgummelt/org/interests.org" "/home/mgummelt/org/essays/next_step.org" "/home/mgummelt/org/chores.org" "/home/mgummelt/org/calendar.org")))
- '(safe-local-variable-values (quote ((eval ignore-errors "Write-contents-functions is a buffer-local alternative to before-save-hook" (add-hook (quote write-contents-functions) (lambda nil (delete-trailing-whitespace) nil)) (require (quote whitespace)) "Sometimes the mode needs to be toggled off and on." (whitespace-mode 0) (whitespace-mode 1)) (whitespace-line-column . 80) (whitespace-style face trailing lines-tail) (require-final-newline . t)))))
+ '(org-agenda-files
+   (quote
+    ("/home/mgummelt/org/projects/auto_ui.org" "/home/mgummelt/org/projects/habits.org" "/home/mgummelt/org/projects/internal_search.org" "/home/mgummelt/org/projects/startup.org" "/home/mgummelt/org/calendar.org")))
+ '(org-effort-durations
+   (quote
+    (("min" . 1)
+     ("h" . 60)
+     ("d" . 300)
+     ("w" . 2100)
+     ("m" . 8400)
+     ("y" . 10800))))
+ '(safe-local-variable-values
+   (quote
+    ((eval ignore-errors "Write-contents-functions is a buffer-local alternative to before-save-hook"
+           (add-hook
+            (quote write-contents-functions)
+            (lambda nil
+              (delete-trailing-whitespace)
+              nil))
+           (require
+            (quote whitespace))
+           "Sometimes the mode needs to be toggled off and on."
+           (whitespace-mode 0)
+           (whitespace-mode 1))
+     (whitespace-line-column . 80)
+     (whitespace-style face trailing lines-tail)
+     (require-final-newline . t)))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
