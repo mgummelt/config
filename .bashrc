@@ -43,7 +43,7 @@ esac
 # uncomment for a colored prompt, if the terminal has the capability; turned
 # off by default to not distract the user: the focus in a terminal window
 # should be on the output of commands, not on the prompt
-#force_color_prompt=yes
+force_color_prompt=yes
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
@@ -125,3 +125,4 @@ alias gen_pyprof="python ~/code/python/gprof2dot.py -f pstats profile.stats | do
 alias screencast="ffmpeg -f alsa -ac 2 -i pulse -f x11grab -r 30 -s 1600x900 -i :0.0 -acodec pcm_s16le -vcodec libx264 -preset ultrafast -crf 0 -threads 0 output.mkv"
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
