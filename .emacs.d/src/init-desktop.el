@@ -1,3 +1,3 @@
-(setq-default desktop-save-mode t)
+(desktop-save-mode 1)
 
 (provide 'init-desktop)
